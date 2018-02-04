@@ -2,6 +2,7 @@ package com.sxg.web.remote.server;
 
 import com.sxg.web.WebApplication;
 import com.sxg.web.remote.RemoteException;
+import com.sxg.web.remote.factory.ServerThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +28,7 @@ public class SocketServer implements Server {
     @Override
     public void init() throws IOException {
         serverSocket = new ServerSocket(port);
+        threadFactory = new ServerThreadFactory();
         executorService = Executors.newFixedThreadPool(20,threadFactory);
     }
 
@@ -37,7 +39,7 @@ public class SocketServer implements Server {
         started = true;
         for(;;) {
             try {
-                serverSocket.accept();
+                executorService.execute(new SocketProcessRunnable(serverSocket.accept()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
