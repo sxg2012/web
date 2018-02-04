@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <jmxConfigurator/>
+
+    <property name="app.logPath" value="D:/opt/tuniu/logs/tomcat/app/web-test"/>
+    <property name="app.logName" value="web"/>
+    <property name="tracer.logName" value="tracer"/>
+    <property name="io.logName" value="io"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{15} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="TRACER" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+    <pattern>%msg%n</pattern>
+    </encoder>
+    </appender>
+    <appender name="IO" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="warn">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+
+    <logger name="com.sxg.web" level="info"/>
+
+</configuration>

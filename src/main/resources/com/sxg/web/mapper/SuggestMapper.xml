@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxg.web.mapper.SuggestMapper">
+    <resultMap id="BaseResultMap"
+               type="com.sxg.web.domain.Suggest">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="code" jdbcType="BIGINT" property="code"/>
+        <result column="poi_type" jdbcType="INTEGER" property="poiType"/>
+        <result column="domestic" jdbcType="INTEGER" property="domestic"/>
+        <result column="catalog" jdbcType="INTEGER" property="catalog"/>
+        <result column="city_code" jdbcType="INTEGER" property="cityCode"/>
+        <result column="city_type" jdbcType="INTEGER" property="cityType"/>
+        <result column="city_tags" jdbcType="VARCHAR" property="cityTags"/>
+        <result column="city_name" jdbcType="VARCHAR" property="cityName"/>
+        <result column="chinese_name" jdbcType="VARCHAR" property="chineseName"/>
+        <result column="english_name" jdbcType="VARCHAR" property="englishName"/>
+        <result column="longitude" jdbcType="DOUBLE" property="longitude"/>
+        <result column="latitude" jdbcType="DOUBLE" property="latitude"/>
+        <result column="star" jdbcType="INTEGER" property="star"/>
+        <result column="heat" jdbcType="INTEGER" property="heat"/>
+        <result column="hotel_count" jdbcType="INTEGER" property="hotelCount"/>
+        <result column="source" jdbcType="TINYINT" property="source"/>
+        <result column="province_code" jdbcType="INTEGER" property="provinceCode"/>
+        <result column="province_name" jdbcType="VARCHAR" property="provinceName"/>
+        <result column="country_code" jdbcType="INTEGER" property="countryCode"/>
+        <result column="country_name" jdbcType="VARCHAR" property="countryName"/>
+        <result column="sort_value" jdbcType="INTEGER" property="sortValue"/>
+        <result column="del_flag" jdbcType="TINYINT" property="delFlag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="can_write" jdbcType="TINYINT" property="canWrite"/>
+        <result column="milliseconds" jdbcType="BIGINT" property="milliseconds"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,code,domestic,poi_type,catalog,city_code,city_type,city_tags,city_name,chinese_name,english_name,longitude,latitude,
+        star,heat,hotel_count,source,province_code,province_name,country_code,country_name,sort_value,del_flag,
+        create_time,update_time,can_write,milliseconds
+    </sql>
+    <select id="queryById" parameterType="int" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        suggest where code =#{id}
+    </select>
+</mapper>
