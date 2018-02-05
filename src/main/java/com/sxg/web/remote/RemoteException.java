@@ -1,7 +1,7 @@
 package com.sxg.web.remote;
 
 /**
- * Created by shaoxiangen 2018/2/3
+ * Created by shaoxiangen 2018/2/5
  */
 public class RemoteException extends Exception{
     public RemoteException() {

@@ -1,7 +1,7 @@
 package com.sxg.web.remote.server;
 
-import com.sxg.web.WebApplication;
 import com.sxg.web.remote.RemoteException;
+import com.sxg.web.remote.ServiceRegiestry;
 import com.sxg.web.remote.factory.ServerThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +24,11 @@ public class SocketServer implements Server {
     private volatile boolean started;
     private ExecutorService executorService;
     private ThreadFactory threadFactory;
+    private ServiceRegiestry serviceRegiestry;
 
     @Override
     public void init() throws IOException {
+        LOG.info("SocketServer initilization.");
         serverSocket = new ServerSocket(port);
         threadFactory = new ServerThreadFactory();
         executorService = Executors.newFixedThreadPool(20,threadFactory);
@@ -39,7 +41,7 @@ public class SocketServer implements Server {
         started = true;
         for(;;) {
             try {
-                executorService.execute(new SocketProcessRunnable(serverSocket.accept()));
+                executorService.execute(new SocketProcessRunnable(serverSocket.accept(),this));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -49,5 +51,13 @@ public class SocketServer implements Server {
     @Override
     public void stop() {
 
+    }
+
+    public ServiceRegiestry getServiceRegiestry() {
+        return serviceRegiestry;
+    }
+
+    public void setServiceRegiestry(ServiceRegiestry serviceRegiestry) {
+        this.serviceRegiestry = serviceRegiestry;
     }
 }
